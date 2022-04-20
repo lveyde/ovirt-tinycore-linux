@@ -43,7 +43,7 @@ jobs:
           path: |
             output/*
       - name: Run tests
-        run: ./test.sh
+        run: sudo ./test.sh
       - name: Upload artifacts
         if: always()
         uses: actions/upload-artifact@v2
