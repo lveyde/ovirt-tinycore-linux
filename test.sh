@@ -64,7 +64,7 @@ function success {
 
 log "⚙️ Starting VM with image..."
 
-nohup qemu-system-x86_64 \
+qemu-system-x86_64 \
     -nographic \
     -drive file=$(pwd)/output/oVirtTinyCore-13.5.qcow2,format=qcow2 \
     -monitor telnet::2000,server,nowait >/tmp/qemu.log 2>/dev/null &
