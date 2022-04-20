@@ -22,6 +22,10 @@ jobs:
           sudo apt-get update && sudo apt-get install packer
       - name: Install QEMU
         run: sudo apt update && sudo apt install -y qemu-utils qemu qemu-kvm gocr
+      - name: Upgrade QEMU
+        run: |
+          sudo add-apt-repository ppa:jacob/virtualisation
+          sudo apt update && sudo apt upgrade -y
       - name: Run build script
         run: sudo ./build.sh
       - name: Run Packer
