@@ -8,6 +8,12 @@ if [ ! -d builddir ]; then
     mkdir builddir
 fi
 
+if [ ! -f ${REPODIR}/src/kernel/vmlinuz64 ]; then
+    pushd ${REPODIR}/src/kernel/
+    ./build.sh
+    popd
+fi
+
 pushd builddir
 
 mkdir {mnt,tmp}
