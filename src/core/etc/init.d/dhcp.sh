@@ -12,8 +12,13 @@ for DEVICE in $NETDEVICES; do
   if [ "$?" != 0 ]; then
 #   echo -e "\n${GREEN}Network device ${MAGENTA}$DEVICE${GREEN} detected, DHCP broadcasting for IP.${NORMAL}"
     trap 2 3 11
-    /sbin/udhcpc -b -i $DEVICE -x hostname:$(/bin/hostname) -p /var/run/udhcpc.$DEVICE.pid >/dev/null 2>&1 &
+#   /sbin/udhcpc -b -i $DEVICE -x hostname:$(/bin/hostname) -p /var/run/udhcpc.$DEVICE.pid >/dev/null 2>&1 &
+    /sbin/dhclient  $DEVICE -pf /var/run/dhclient.$DEVICE.pid >/dev/null 2>&1 &
     trap "" 2 3 11
     sleep 1
   fi
+
+  /sbin/dhclient -6 $DEVICE -pf /var/run/dhclient6.$DEVICE.pid >/dev/null 2>&1 &
+  trap "" 2 3 11
+  sleep 1
 done

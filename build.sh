@@ -43,6 +43,8 @@ popd
 
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/bash.tcz
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/bash.tcz.md5.txt
+wget http://www.tinycorelinux.net/13.x/x86_64/tcz/dhcp.tcz
+wget http://www.tinycorelinux.net/13.x/x86_64/tcz/dhcp.tcz.md5.txt
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/glib2.tcz
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/ipv6-netfilter-5.15.10-tinycore64.tcz
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/ipv6-netfilter-5.15.10-tinycore64.tcz.md5.txt
@@ -86,6 +88,12 @@ echo ovirt-acpid.tcz >> tmp/cde/copy2fs.lst
 cp -avl tmp/cde/optional/ovirt-acpid.tcz* tmp/cdeCLI/optional/
 echo ovirt-acpid.tcz >> tmp/cdeCLI/onboot.lst
 
+mount dhcp.tcz mnt
+cp -av mnt/usr/local/sbin/dhclient core.new/sbin/
+umount mnt
+
+mkdir -p core.new/var/db/
+
 mount glib2.tcz mnt
 cp -av mnt/usr/local/lib/libglib-2.0.so* core.new/usr/local/lib/
 cp -av mnt/usr/local/lib/libgthread-2.0.so* core.new/usr/local/lib/
@@ -116,6 +124,7 @@ cp -av mnt/usr/local/lib/* core.new/usr/local/lib/
 umount mnt
 
 cp -av ${REPODIR}/src/core/etc/* core.new/etc/
+cp -av ${REPODIR}/src/core/sbin/* core.new/sbin/
 
 cp -av ${REPODIR}/src/busybox/bin/busybox core.new/bin/
 
