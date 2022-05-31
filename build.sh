@@ -41,6 +41,8 @@ pushd core.new
 zcat ../corepure64.gz | cpio -idmv
 popd
 
+wget http://www.tinycorelinux.net/13.x/x86_64/tcz/bash.tcz
+wget http://www.tinycorelinux.net/13.x/x86_64/tcz/bash.tcz.md5.txt
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/glib2.tcz
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/ipv6-netfilter-5.15.10-tinycore64.tcz
 wget http://www.tinycorelinux.net/13.x/x86_64/tcz/ipv6-netfilter-5.15.10-tinycore64.tcz.md5.txt
@@ -67,6 +69,14 @@ if [ ! -f ${REPODIR}/pkgs/ovirt-acpid/ovirt-acpid.tcz.md5.txt ]; then
     md5sum ovirt-acpid.tcz > ovirt-acpid.tcz.md5.txt
     popd
 fi
+
+cp -av bash.tcz* tmp/cde/optional/
+echo bash.tcz >> tmp/cde/onboot.lst
+echo bash.tcz >> tmp/cde/onboot.CLI.lst
+echo bash.tcz >> tmp/cde/copy2fs.lst
+
+cp -avl tmp/cde/optional/bash.tcz* tmp/cdeCLI/optional/
+echo bash.tcz >> tmp/cdeCLI/onboot.lst
 
 cp -av ${REPODIR}/pkgs/ovirt-acpid/ovirt-acpid.tcz* tmp/cde/optional/
 echo ovirt-acpid.tcz >> tmp/cde/onboot.lst
